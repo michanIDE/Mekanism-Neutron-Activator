@@ -2,7 +2,7 @@ package net.michanide.mekanismneutronactivator.common;
 
 import com.mojang.logging.LogUtils;
 
-import net.michanide.mekanismneutronactivator.common.config.modConfig;
+import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
 import net.michanide.mekanismneutronactivator.common.registries.modBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -37,7 +37,7 @@ public class MekanismNeutronActivator
 
     public MekanismNeutronActivator()
     {
-        modConfig.registerConfigs(ModLoadingContext.get());
+        MNAConfig.registerConfigs(ModLoadingContext.get());
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
