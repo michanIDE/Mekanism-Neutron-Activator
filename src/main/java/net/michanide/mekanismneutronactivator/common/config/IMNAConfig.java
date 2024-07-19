@@ -1,10 +1,11 @@
 package net.michanide.mekanismneutronactivator.common.config;
 
+import mekanism.common.config.IMekanismConfig;
 import mekanism.common.config.value.CachedValue;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 
-public interface IMNAConfig {
+public interface IMNAConfig extends IMekanismConfig{
     String getFileName();
 
     ForgeConfigSpec getConfigSpec();

@@ -10,7 +10,7 @@ public class MNAConfigHelper {
 
     }
 
-    public static final Path CONFIG_DIR = FMLPaths.getOrCreateGameRelativePath(FMLPaths.CONFIGDIR.get().resolve(MekanismNeutronActivator.MOD_NAME), MekanismNeutronActivator.MOD_NAME);
+    public static final Path CONFIG_DIR = FMLPaths.getOrCreateGameRelativePath(FMLPaths.CONFIGDIR.get().resolve(MekanismNeutronActivator.MOD_NAME_SAFE), MekanismNeutronActivator.MOD_NAME_SAFE);
 
     public static void registerConfig(ModContainer modContainer, IMNAConfig config) {
         MNAModConfig modConfig = new MNAModConfig(modContainer, config);

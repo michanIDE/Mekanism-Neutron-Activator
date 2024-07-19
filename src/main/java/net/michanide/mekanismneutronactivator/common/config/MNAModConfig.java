@@ -18,7 +18,7 @@ public class MNAModConfig extends ModConfig{
     private final IMNAConfig mnaConfig;
 
     public MNAModConfig(ModContainer container, IMNAConfig config){
-        super(config.getConfigType(), config.getConfigSpec(), container, MekanismNeutronActivator.MOD_NAME + "/" + config.getFileName() + ".toml");
+        super(config.getConfigType(), config.getConfigSpec(), container, MekanismNeutronActivator.MOD_NAME_SAFE + "/" + config.getFileName() + ".toml");
         this.mnaConfig = config;
     }
 
