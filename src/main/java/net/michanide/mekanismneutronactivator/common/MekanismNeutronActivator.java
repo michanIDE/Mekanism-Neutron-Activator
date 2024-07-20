@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 
 import mekanism.common.config.MekanismModConfig;
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
-import net.michanide.mekanismneutronactivator.common.registries.modBlocks;
+import net.michanide.mekanismneutronactivator.common.registries.MNABlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,7 +46,7 @@ public class MekanismNeutronActivator
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onConfigLoad);
 
-        modBlocks.BLOCKS.register(modEventBus);
+        MNABlocks.BLOCKS.register(modEventBus);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

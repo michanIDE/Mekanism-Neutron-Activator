@@ -2,9 +2,11 @@ package net.michanide.mekanismneutronactivator.common.config;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mekanism.common.config.IMekanismConfig;
 import mekanism.common.config.value.CachedValue;
 
-public abstract class BaseMNAConfig implements IMNAConfig{
+public abstract class BaseMNAConfig implements IMekanismConfig{
 
     private final List<CachedValue<?>> cachedConfigValues = new ArrayList<>();
     
