@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.common.block.prefab.BlockTile;
-import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.machine.ItemBlockMachine;
 import net.michanide.mekanismneutronactivator.common.content.blocktype.MNAMachine;
 import net.michanide.mekanismneutronactivator.common.tile.machine.TileEntityFusionNeutronActivator;

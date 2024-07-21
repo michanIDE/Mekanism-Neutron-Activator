@@ -1,7 +1,6 @@
 package net.michanide.mekanismneutronactivator.common.registries;
 
 import mekanism.common.block.prefab.BlockTile.BlockTileModel;
-import mekanism.common.content.blocktype.Machine;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import net.michanide.mekanismneutronactivator.common.MekanismNeutronActivator;

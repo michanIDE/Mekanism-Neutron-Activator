@@ -13,7 +13,6 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.lib.math.Pos3D;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.TileEntityMekanism;
-import net.michanide.mekanismneutronactivator.common.MNALang;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 
