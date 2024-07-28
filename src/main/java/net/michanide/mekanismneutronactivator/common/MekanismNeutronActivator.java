@@ -43,7 +43,7 @@ public class MekanismNeutronActivator
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-
+        
     }
 
     private void onConfigLoad(ModConfigEvent configEvent){
