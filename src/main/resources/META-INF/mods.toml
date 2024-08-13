@@ -62,6 +62,12 @@ This method is weather and climate independent and can overcome the weaknesses o
     versionRange="[10.2.5,)"
     ordering="AFTER"
     side="BOTH"
+[[dependencies.mekanismneutronactivator]] #optional
+    modId="mekanismgenerators"
+    mandatory=true
+    versionRange="[10.2.5,)"
+    ordering="AFTER"
+    side="BOTH"
 # Here's another dependency
 [[dependencies.mekanismneutronactivator]]
     modId="minecraft"

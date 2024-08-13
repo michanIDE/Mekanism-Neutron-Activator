@@ -175,9 +175,12 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
-    implementation fg.deobf("com.github.mekanism.mekanism:Mekanism:1.18.2-10.2.5.465")
+    implementation fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
+    implementation fg.deobf("mekanism:MekanismGenerators:${mc_version}-${mekanism_version}")
+    
 }
+
+// def replaceProperties = [mc_version: mc_version, mekanism_version: mekanism_version]
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
