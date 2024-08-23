@@ -169,8 +169,6 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     }
 
     private boolean canFunction() {
-        // Sort out if the solar neutron activator can see the sun; we no longer check if it's raining here,
-        // since under the new rules, we can still function when it's raining, albeit at a significant penalty.
         return MekanismUtils.canFunction(this);
     }
 
@@ -184,7 +182,6 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         float brightness = WorldUtils.getSunBrightness(world, 1.0F);
         //Production is a function of the peak possible output in this biome and sun's current brightness
         float production = peakProductionRate * brightness;
-        //If the solar neutron activator is in a biome where it can rain, and it's raining penalize production by 80%
         if (needsRainCheck && (world.isRaining() || world.isThundering())) {
             production *= 0.2F;
         }

@@ -8,9 +8,7 @@ import java.util.List;
 
 import mekanism.client.model.MekanismJavaModel;
 import mekanism.client.model.ModelPartData;
-import mekanism.common.Mekanism;
-import mekanism.common.util.MekanismUtils;
-import mekanism.common.util.MekanismUtils.ResourceType;
+import net.michanide.mekanismneutronactivator.common.MekanismNeutronActivator;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -23,8 +21,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ModelFusionNeutronActivator extends MekanismJavaModel {
 
-    public static final ModelLayerLocation ACTIVATOR_LAYER = new ModelLayerLocation(Mekanism.rl("fusion_neutron_activator"), "main");
-    private static final ResourceLocation ACTIVATOR_TEXTURE = MekanismUtils.getResource(ResourceType.RENDER, "fusion_neutron_activator.png");
+    public static final ModelLayerLocation ACTIVATOR_LAYER = new ModelLayerLocation(MekanismNeutronActivator.rl("fusion_neutron_activator"), "main");
+    private static final ResourceLocation ACTIVATOR_TEXTURE = MekanismNeutronActivator.rl("render/fusion_neutron_activator.png");
 
     private static final ModelPartData POLE = new ModelPartData("pole", CubeListBuilder.create()
           .texOffs(116, 0)
@@ -227,7 +225,6 @@ public class ModelFusionNeutronActivator extends MekanismJavaModel {
     @Override
     public void renderToBuffer(@Nonnull PoseStack matrix, @Nonnull VertexConsumer vertexBuilder, int light, int overlayLight, float red, float green, float blue, float alpha) {
         renderPartsToBuffer(parts, matrix, vertexBuilder, light, overlayLight, red, green, blue, alpha);
-        //TODO: Figure out if there is there supposed to be a "laser" here?
         laserBeamToggle.render(matrix, vertexBuilder, light, overlayLight, red, green, blue, alpha);
     }
 

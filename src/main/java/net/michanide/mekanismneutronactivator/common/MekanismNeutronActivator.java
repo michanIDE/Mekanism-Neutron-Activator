@@ -7,6 +7,7 @@ import net.michanide.mekanismneutronactivator.common.config.MNAModConfig;
 import net.michanide.mekanismneutronactivator.common.registries.MNABlocks;
 import net.michanide.mekanismneutronactivator.common.registries.MNAContainerTypes;
 import net.michanide.mekanismneutronactivator.common.registries.MNATileEntityTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -52,5 +53,9 @@ public class MekanismNeutronActivator
             mnaConfig.clearCache();
         }
     }
+
+    public static ResourceLocation rl(String path) {
+      return new ResourceLocation(MekanismNeutronActivator.MOD_ID, path);
+   }
 
 }
