@@ -1,7 +1,6 @@
 package net.michanide.mekanismneutronactivator.common;
 
 import mekanism.api.text.ILangEntry;
-import mekanism.common.Mekanism;
 import net.minecraft.Util;
 
 public enum MNALang implements ILangEntry{
@@ -11,7 +10,7 @@ public enum MNALang implements ILangEntry{
     private final String key;
 
     MNALang(String type, String path) {
-        this(Util.makeDescriptionId(type, Mekanism.rl(path)));
+        this(Util.makeDescriptionId(type, MekanismNeutronActivator.rl(path)));
     }
 
     MNALang(String key) {

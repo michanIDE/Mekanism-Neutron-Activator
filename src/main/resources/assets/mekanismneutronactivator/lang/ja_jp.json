@@ -1,0 +1,7 @@
+{
+    "block.mekanismneutronactivator.fusion_neutron_activator": "核融合炉中性子反応機",
+
+    "description.mekanismneutronactivator.fusion_neutron_activator": "内部容器内に核融合炉のD-T反応により発生する中性子を送り込み、効率的に核異性体を生成する機会です。 稼働中の核融合炉の中央の真下に設置する必要があります。",
+
+    "container.mekanismneutronactivator.fusion_neutron_activator": "核融合炉中性子反応機"
+}
