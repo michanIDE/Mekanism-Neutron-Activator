@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "ARA",
+      "CFC",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "mekanism:alloy_reinforced"
+      },
+      "R": {
+        "item": "mekanismgenerators:fission_fuel_assembly"
+      },
+      "C": {
+        "item": "mekanism:elite_control_circuit"
+      },
+      "F": {
+        "item": "mekanismgenerators:fusion_reactor_frame"
+      },
+      "B": {
+        "tag": "forge:ingots/bronze"
+      }
+    },
+    "result": {
+      "item": "mekanismneutronactivator:fusion_neutron_activator"
+    }
+  }
