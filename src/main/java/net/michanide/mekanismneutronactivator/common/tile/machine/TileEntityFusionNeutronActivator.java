@@ -47,6 +47,7 @@ import mekanism.common.tile.interfaces.IBoundingBlock;
 import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.WorldUtils;
+import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorController;
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
 import net.michanide.mekanismneutronactivator.common.registries.MNABlocks;
@@ -73,7 +74,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     @SyntheticComputerMethod(getter = "getProductionRate")
     private float productionRate;
 
-    private Long burnedFuel;
+    private Long fuelBurned;
 
     private final IOutputHandler<@NonNull GasStack> outputHandler;
     private final IInputHandler<@NonNull GasStack> inputHandler;
@@ -96,7 +97,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
 
-        burnedFuel = 0L;
+        fuelBurned = 0L;
     }
 
     @Nonnull
@@ -146,11 +147,11 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     }
 
     public Long getFuelBurned(){
-        return burnedFuel;
+        return fuelBurned;
     } 
 
     public void setFuelBurned(Long value){
-        burnedFuel = value;
+        fuelBurned = value;
     }
 
     private boolean canFunction() {
@@ -167,10 +168,18 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         BlockPos dstBlock = this.getBlockPos().above(6);
         BlockEntity aboveEntity = WorldUtils.getTileEntity(world, dstBlock);
         if(aboveEntity != null && aboveEntity instanceof TileEntityFusionReactorController){
-            lastFuelBurned = this.getFuelBurned();
+            FusionReactorMultiblockData multiblock = ((TileEntityFusionReactorController)aboveEntity).getMultiblock();
+            if(multiblock != null){
+                if(multiblock.isBurning()){
+                    lastFuelBurned = this.getFuelBurned();
+                } else {
+                    lastFuelBurned = 0L;
+                }
+            } else {
+                lastFuelBurned = 0L;
+            }
             // System.out.println(lastFuelBurned);
         } else {
-            lastFuelBurned = 0L;
         }
         float production = (float) MNAConfig.general.fusionNeutronActivatorMultiplier.get() * (float) lastFuelBurned;
         // System.out.println(production);
