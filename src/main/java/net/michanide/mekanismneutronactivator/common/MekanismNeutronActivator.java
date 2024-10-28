@@ -1,6 +1,6 @@
 package net.michanide.mekanismneutronactivator.common;
 
-import com.mojang.logging.LogUtils;
+// import com.mojang.logging.LogUtils;
 
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
 import net.michanide.mekanismneutronactivator.common.config.MNAModConfig;
@@ -15,14 +15,14 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
+// import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MekanismNeutronActivator.MOD_ID)
 public class MekanismNeutronActivator
 {
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    // private static final Logger LOGGER = LogUtils.getLogger();
 
     public static MekanismNeutronActivator instance;
 

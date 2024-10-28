@@ -184,6 +184,15 @@ dependencies {
     implementation fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
     implementation fg.deobf("mekanism:MekanismGenerators:${mc_version}-${mekanism_version}")
     
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+mixin {
+    add sourceSets.main, 'mixins.mekanismneutronactivator.refmap.json'
+    config 'mixins.mekanismneutronactivator.json'
+
+    debug.verbose = true
+    debug.export = true
 }
 
 // def replaceProperties = [mc_version: mc_version, mekanism_version: mekanism_version]

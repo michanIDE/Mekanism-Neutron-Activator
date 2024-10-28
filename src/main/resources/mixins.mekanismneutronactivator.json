@@ -1,0 +1,10 @@
+{
+    "package": "net.michanide.mekanismneutronactivator.common.mixin",
+    "mixins": [
+      "FusionReactorMultiblockDataMixin"
+    ],
+    "refmap": "mekanismneutronactivator.refmap.json",
+    "required": true,
+    "minVersion": "0.8",
+    "compatibilityLevel": "JAVA_8"
+  }
