@@ -20,7 +20,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 
-version = '1.0.0'
+version = '1.1.0'
 group = 'net.michanide.mekanismneutronactivator' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'mekanismneutronactivator'
 
@@ -184,6 +184,15 @@ dependencies {
     implementation fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
     implementation fg.deobf("mekanism:MekanismGenerators:${mc_version}-${mekanism_version}")
     
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+mixin {
+    add sourceSets.main, 'mixins.mekanismneutronactivator.refmap.json'
+    config 'mixins.mekanismneutronactivator.json'
+
+    debug.verbose = true
+    debug.export = true
 }
 
 // def replaceProperties = [mc_version: mc_version, mekanism_version: mekanism_version]

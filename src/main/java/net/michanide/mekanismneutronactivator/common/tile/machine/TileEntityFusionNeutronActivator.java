@@ -64,7 +64,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
-    public static final long MAX_GAS = 10_000;
+    public static final long MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();
 
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"})
     public IGasTank inputTank;
@@ -74,6 +74,8 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     @SyntheticComputerMethod(getter = "getProductionRate")
     private float productionRate;
 
+    private Long fuelBurned;
+
     private final IOutputHandler<@NonNull GasStack> outputHandler;
     private final IInputHandler<@NonNull GasStack> inputHandler;
 
@@ -81,10 +83,6 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     private GasInventorySlot inputSlot;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem")
     private GasInventorySlot outputSlot;
-
-    // private double lastPlasmaTemperature = 300;
-    // private double burnTemperature = 100_000_000;
-    // private double burnRatio = 1;
 
     public TileEntityFusionNeutronActivator(BlockPos pos, BlockState state) {
         super(MNABlocks.FUSION_NEUTRON_ACTIVATOR, pos, state, TRACKED_ERROR_TYPES);
@@ -98,6 +96,8 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
+
+        fuelBurned = 0L;
     }
 
     @Nonnull
@@ -146,6 +146,14 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         return findFirstRecipe(inputHandler);
     }
 
+    public Long getFuelBurned(){
+        return fuelBurned;
+    } 
+
+    public void setFuelBurned(Long value){
+        fuelBurned = value;
+    }
+
     private boolean canFunction() {
         return MekanismUtils.canFunction(this);
     }
@@ -156,21 +164,26 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
             return 0;
         }
 
-        int injectionRate = 0;
-        BlockEntity aboveEntity = WorldUtils.getTileEntity(getLevel(), this.getBlockPos().above(6));
+        Long lastFuelBurned = 0L;
+        BlockPos dstBlock = this.getBlockPos().above(6);
+        BlockEntity aboveEntity = WorldUtils.getTileEntity(world, dstBlock);
         if(aboveEntity != null && aboveEntity instanceof TileEntityFusionReactorController){
             FusionReactorMultiblockData multiblock = ((TileEntityFusionReactorController)aboveEntity).getMultiblock();
-            if(multiblock.isBurning()){
-                injectionRate = multiblock.getInjectionRate();
+            if(multiblock != null){
+                if(multiblock.isBurning()){
+                    lastFuelBurned = this.getFuelBurned();
+                } else {
+                    lastFuelBurned = 0L;
+                }
             } else {
-                injectionRate = 0;
+                lastFuelBurned = 0L;
             }
+            // System.out.println(lastFuelBurned);
         } else {
-            injectionRate = 0;
         }
-        productionRate = (float) MNAConfig.general.fusionNeutronActivatorMultiplier.get() * (float) injectionRate;
-        // System.out.println(productionRate);
-        return productionRate;
+        float production = (float) MNAConfig.general.fusionNeutronActivatorMultiplier.get() * (float) lastFuelBurned;
+        // System.out.println(production);
+        return production;
     }
 
     @Nonnull
