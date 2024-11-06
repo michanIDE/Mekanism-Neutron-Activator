@@ -1,9 +1,10 @@
 package net.michanide.mekanismneutronactivator.common;
 
+import mekanism.common.config.MekanismModConfig;
+
 // import com.mojang.logging.LogUtils;
 
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
-import net.michanide.mekanismneutronactivator.common.config.MNAModConfig;
 import net.michanide.mekanismneutronactivator.common.registries.MNABlocks;
 import net.michanide.mekanismneutronactivator.common.registries.MNAContainerTypes;
 import net.michanide.mekanismneutronactivator.common.registries.MNATileEntityTypes;
@@ -49,7 +50,7 @@ public class MekanismNeutronActivator
 
     private void onConfigLoad(ModConfigEvent configEvent){
         ModConfig config = configEvent.getConfig();
-        if (config.getModId().equals(MOD_ID) && config instanceof MNAModConfig mnaConfig) {
+        if (config.getModId().equals(MOD_ID) && config instanceof MekanismModConfig mnaConfig) {
             mnaConfig.clearCache();
         }
     }
