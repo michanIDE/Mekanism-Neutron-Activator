@@ -64,7 +64,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
-    public static final long MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();
+    public static long MAX_GAS;
 
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"})
     public IGasTank inputTank;
@@ -96,8 +96,9 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
-
+        
         fuelBurned = 0L;
+        MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();
     }
 
     @Nonnull
