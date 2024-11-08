@@ -12,6 +12,7 @@ public class MNAGeneralConfig extends BaseMekanismConfig {
 
     public final CachedLongValue fusionNeutronActivatorMaxTankSize;
     public final CachedDoubleValue fusionNeutronActivatorMultiplier;
+    public final CachedLongValue fusionNeutronActivatorOutputRate;
 
     MNAGeneralConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -21,6 +22,8 @@ public class MNAGeneralConfig extends BaseMekanismConfig {
             .defineInRange("fusionNeutronActivatorMaxTankSize", 100_000L, 1L, Long.MAX_VALUE));
         fusionNeutronActivatorMultiplier = CachedDoubleValue.wrap(this, builder.comment("Multiplier of fusion neutron activator's production rate. Actual producton rate is this value multiplied by fusion fuel burned.")
             .defineInRange("fusionNeutronActivatorMultiplier", 3.0, 0.0, Double.MAX_VALUE));
+        fusionNeutronActivatorOutputRate = CachedLongValue.wrap(this, builder.comment("Output rate of fusion neutron activator.")
+        .defineInRange("fusionNeutronActivatorOutputRate", 4_096L, 1L, Long.MAX_VALUE));
 
         builder.pop();
         configSpec = builder.build();

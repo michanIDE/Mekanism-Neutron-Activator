@@ -64,7 +64,8 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
-    public static long MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();;
+    public static final long MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();
+    public static final long OUTPUT_RATE = MNAConfig.general.fusionNeutronActivatorOutputRate.get();
 
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"})
     public IGasTank inputTank;
@@ -91,7 +92,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         configComponent.setupIOConfig(TransmissionType.GAS, inputTank, outputTank, RelativeSide.FRONT, false, true).setEjecting(true);
         configComponent.addDisabledSides(RelativeSide.TOP);
 
-        ejectorComponent = new TileComponentEjector(this);
+        ejectorComponent = new TileComponentEjector(this, () -> OUTPUT_RATE);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.GAS)
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
