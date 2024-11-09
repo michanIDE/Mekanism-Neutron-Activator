@@ -32,8 +32,6 @@ public class FusionReactorMultiblockDataMixin extends MultiblockData{
             TileEntityFusionNeutronActivator tileMNA = (TileEntityFusionNeutronActivator) tile;
             tileMNA.setFuelBurned(mixinFuelBurned);
         }
-
-        // System.out.println(Long.toString(mixinFuelBurned));
     }
 
 }

@@ -28,6 +28,7 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.config.value.CachedLongValue;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerChemicalTankWrapper;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper;
 import mekanism.common.integration.computer.annotation.SyntheticComputerMethod;
@@ -64,8 +65,8 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
-    public static final long MAX_GAS = MNAConfig.general.fusionNeutronActivatorMaxTankSize.get();
-    public static final long OUTPUT_RATE = MNAConfig.general.fusionNeutronActivatorOutputRate.get();
+    public static final CachedLongValue MAX_GAS_CONF = MNAConfig.general.fusionNeutronActivatorMaxTankSize;
+    public static final CachedLongValue OUTPUT_RATE_CONF = MNAConfig.general.fusionNeutronActivatorOutputRate;
 
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"})
     public IGasTank inputTank;
@@ -92,7 +93,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         configComponent.setupIOConfig(TransmissionType.GAS, inputTank, outputTank, RelativeSide.FRONT, false, true).setEjecting(true);
         configComponent.addDisabledSides(RelativeSide.TOP);
 
-        ejectorComponent = new TileComponentEjector(this, () -> OUTPUT_RATE);
+        ejectorComponent = new TileComponentEjector(this, OUTPUT_RATE_CONF);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.GAS)
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
@@ -106,10 +107,10 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     public IChemicalTankHolder<Gas, GasStack, IGasTank> getInitialGasTanks(IContentsListener listener, IContentsListener recipeCacheListener) {
         ChemicalTankHelper<Gas, GasStack, IGasTank> builder = ChemicalTankHelper.forSideGasWithConfig(this::getDirection, this::getConfig);
         //Allow extracting out of the input gas tank if it isn't external OR the output tank is empty AND the input is radioactive
-        builder.addTank(inputTank = ChemicalTankBuilder.GAS.create(MAX_GAS,
+        builder.addTank(inputTank = ChemicalTankBuilder.GAS.create(MAX_GAS_CONF.get(),
               (type, automationType) -> automationType != AutomationType.EXTERNAL || (outputTank.isEmpty() && type.has(GasAttributes.Radiation.class)),
               ChemicalTankBuilder.GAS.alwaysTrueBi, this::containsRecipe, ChemicalAttributeValidator.ALWAYS_ALLOW, recipeCacheListener));
-        builder.addTank(outputTank = ChemicalTankBuilder.GAS.output(MAX_GAS, listener));
+        builder.addTank(outputTank = ChemicalTankBuilder.GAS.output(MAX_GAS_CONF.get(), listener));
         return builder.build();
     }
 
