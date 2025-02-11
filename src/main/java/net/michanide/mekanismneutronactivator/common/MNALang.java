@@ -5,6 +5,7 @@ import net.minecraft.Util;
 
 public enum MNALang implements ILangEntry{
     DESCRIPTION_FUSION_NEUTRON_ACTIVATOR("description", "fusion_neutron_activator"),
+    DESCRIPTION_FISSION_NEUTRON_ACTIVATOR("description", "fission_neutron_activator"),
     ;
 
     private final String key;
