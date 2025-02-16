@@ -1,8 +1,10 @@
 {
     "block.mekanismneutronactivator.fusion_neutron_activator": "核融合炉中性子反応機",
+    "block.mekanismneutronactivator.fission_neutron_activator": "核分裂中性子反応機",
 
     "description.mekanismneutronactivator.fusion_neutron_activator": "内部容器内に核融合炉のD-T反応により発生する中性子を送り込み、効率的に核異性体を生成する機械です。 稼働中の核融合炉の中央の真下に設置する必要があります。",
     "description.mekanismneutronactivator.fission_neutron_activator": "内部容器内に主にプルトニウム240の自発核分裂により発生する中性子を送り込み、非常に遅いペースで核異性体を生成する機械です。 (使用済みでない)核廃棄物またはプルトニウムの入った放射性廃棄物バレルの真下に設置する必要があります。プルトニウムは処理により消費されます。",
 
-    "container.mekanismneutronactivator.fusion_neutron_activator": "核融合炉中性子反応機"
+    "container.mekanismneutronactivator.fusion_neutron_activator": "核融合炉中性子反応機",
+    "container.mekanismneutronactivator.fission_neutron_activator": "核分裂中性子反応機"
 }

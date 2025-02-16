@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
@@ -28,6 +29,7 @@ import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.capabilities.chemical.StackedWasteBarrel;
+import mekanism.common.config.MekanismConfig;
 import mekanism.common.config.value.CachedDoubleValue;
 import mekanism.common.config.value.CachedLongValue;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerChemicalTankWrapper;
@@ -86,6 +88,9 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem")
     private GasInventorySlot outputSlot;
 
+    private int plutoniumDecayCounter;
+    private long lastProcessTick = -1;
+
     public TileEntityFissionNeutronActivator(BlockPos pos, BlockState state) {
         super(MNABlocks.FISSION_NEUTRON_ACTIVATOR, pos, state, TRACKED_ERROR_TYPES);
         configComponent = new TileComponentConfig(this, TransmissionType.ITEM, TransmissionType.GAS);
@@ -98,6 +103,8 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
+
+        plutoniumDecayCounter = 0;
     }
 
     @Nonnull
@@ -130,7 +137,7 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
         super.onUpdateServer();
         inputSlot.fillTank();
         outputSlot.drainTank();
-        productionRate = recalculateProductionRate();
+        productionRate = recalculateProductionRateAndDecay();
         recipeCacheLookupMonitor.updateAndProcess();
     }
 
@@ -150,10 +157,13 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
         return MekanismUtils.canFunction(this);
     }
 
-    private float recalculateProductionRate() {
+    private float recalculateProductionRateAndDecay() {
         Level world = getLevel();
+        boolean isPlutonium = false;
+        float productionRate = 0;
 
         if (world == null || !canFunction()) {
+            plutoniumDecayCounter = 0;
             return 0;
         }
 
@@ -163,14 +173,26 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
             TileEntityRadioactiveWasteBarrel barrel = (TileEntityRadioactiveWasteBarrel) aboveEntity;
             StackedWasteBarrel wasteTank = barrel.getGasTank();
             if(wasteTank.getType() == MekanismGases.NUCLEAR_WASTE.getChemical()){
-                System.out.println("Waste tank is nuclear waste");
-                return (float)PRODUCTION_RATE.get();
+                // System.out.println("Waste tank is nuclear waste");
+                productionRate = (float)PRODUCTION_RATE.get();
             } else if(wasteTank.getType() == MekanismGases.PLUTONIUM.getChemical()){
-                System.out.println("Waste tank is plutonium");
-                return (float)(PRODUCTION_RATE.get() * MNAConfig.general.fissionNeutronActivatorPlutoniumMultiplier.get());
+                isPlutonium = true;
+                // System.out.println("Waste tank is plutonium");
+                productionRate = (float)(PRODUCTION_RATE.get() * MNAConfig.general.fissionNeutronActivatorPlutoniumMultiplier.get());
             }
+            if(isPlutonium && world.getGameTime() > lastProcessTick){
+                // lastProcessTick = world.getGameTime();
+                // System.out.println("Plutonium decay counter: " + plutoniumDecayCounter);
+                if(++plutoniumDecayCounter >= MekanismConfig.general.radioactiveWasteBarrelProcessTicks.get()){
+                    plutoniumDecayCounter = 0;
+                    wasteTank.shrinkStack(MekanismConfig.general.radioactiveWasteBarrelDecayAmount.get(), Action.EXECUTE);
+                    // System.out.println("Plutonium decayed");
+                }
+            }
+        } else {
+            plutoniumDecayCounter = 0;
         }
-        return 0;
+        return productionRate;
     }
 
     @Nonnull
