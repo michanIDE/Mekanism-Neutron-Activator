@@ -49,3 +49,10 @@ PS: We developed another method which uses nuclear waste. This is for the enviro
     versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.mekanism]]
+    modId="jei"
+    mandatory=false
+    versionRange="[9.7.0.180,)"
+    ordering="AFTER"
+    side="BOTH"

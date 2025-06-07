@@ -30,5 +30,6 @@ public class MNAJEI implements IModPlugin{
     @Override
     public void registerRecipeCatalysts(@Nonnull IRecipeCatalystRegistration registry) {
         CatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ACTIVATING, MNABlocks.FUSION_NEUTRON_ACTIVATOR);
+        CatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ACTIVATING, MNABlocks.FISSION_NEUTRON_ACTIVATOR);
     }
 }
