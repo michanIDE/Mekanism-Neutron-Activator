@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mekanismneutronactivator:block/fusion_neutron_activator"
+    },
+    "facing=south": {
+      "model": "mekanismneutronactivator:block/fusion_neutron_activator",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "mekanismneutronactivator:block/fusion_neutron_activator",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "mekanismneutronactivator:block/fusion_neutron_activator",
+      "y": -90
+    }
+  }
+}

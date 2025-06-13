@@ -1,0 +1,6 @@
+{
+    "values": [
+        "mekanismneutronactivator:fission_neutron_activator",
+        "mekanismneutronactivator:fusion_neutron_activator"
+    ]
+}
