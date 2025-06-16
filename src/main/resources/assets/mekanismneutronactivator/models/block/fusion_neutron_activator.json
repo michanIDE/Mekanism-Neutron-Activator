@@ -1,12 +1,12 @@
 {
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "mekanism:block/models/solar_neutron_activator1",
-    "1": "mekanism:block/models/solar_neutron_activator2",
+    "0": "mekanismneutronactivator:block/models/fusion_neutron_activator1",
+    "1": "mekanismneutronactivator:block/models/fusion_neutron_activator2",
     "2": "mekanism:block/bottom",
     "4": "mekanism:block/models/ports_led",
     "5": "mekanism:block/models/ports",
-    "particle": "mekanism:block/models/solar_neutron_activator1"
+    "particle": "mekanismneutronactivator:block/models/fusion_neutron_activator1"
   },
   "elements": [
     {
