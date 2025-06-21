@@ -1,4 +1,6 @@
 {
+    "constants.mekanismneutronactivator.mod_name": "Mekanism: Neutron Activator",
+    
     "block.mekanismneutronactivator.fusion_neutron_activator": "核融合中性子反応機",
     "block.mekanismneutronactivator.fission_neutron_activator": "核分裂中性子反応機",
 

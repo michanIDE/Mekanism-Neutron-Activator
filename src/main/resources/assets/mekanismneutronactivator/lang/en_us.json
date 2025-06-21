@@ -1,4 +1,6 @@
 {
+    "constants.mekanismneutronactivator.mod_name": "Mekanism: Neutron Activator",
+    
     "block.mekanismneutronactivator.fusion_neutron_activator": "Fusion Neutron Activator",
     "block.mekanismneutronactivator.fission_neutron_activator": "Fission Neutron Activator",
 

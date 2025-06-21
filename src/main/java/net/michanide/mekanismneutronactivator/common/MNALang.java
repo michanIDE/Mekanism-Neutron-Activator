@@ -4,6 +4,8 @@ import mekanism.api.text.ILangEntry;
 import net.minecraft.Util;
 
 public enum MNALang implements ILangEntry{
+    MEKANISM_NEUTRON_ACTIVATOR("constants", "mod_name"),
+
     DESCRIPTION_FUSION_NEUTRON_ACTIVATOR("description", "fusion_neutron_activator"),
     DESCRIPTION_FISSION_NEUTRON_ACTIVATOR("description", "fission_neutron_activator"),
     ;
