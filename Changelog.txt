@@ -1,0 +1,20 @@
+v1.2.3
+Changed Texture
+
+v1.2.2
+Code Cleanup and Fixed JEI problem
+
+v1.2.1
+Fixed an issue where machines wouldn't drop when broken.
+
+v1.2.0
+We developed another method which uses nuclear waste. This is for the environments where the sun is unavailable.
+
+v1.1.2
+Fixed Config Problem.
+
+v1.1.1
+Fixed Config Problem. (For Original Mekanism mod)
+
+v1.1.0
+First Version
