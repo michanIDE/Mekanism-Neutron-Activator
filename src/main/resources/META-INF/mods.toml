@@ -31,6 +31,13 @@ license="${mod_license}"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="mekanismgenerators"
+    mandatory=true
+    versionRange="${mekanism_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
     modId="jei"
     mandatory=false
     versionRange="${jei_version_range}"
