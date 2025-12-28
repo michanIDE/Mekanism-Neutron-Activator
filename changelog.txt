@@ -1,2 +1,9 @@
 v1.0.0
 Initial Port for 1.20.1
+
+v1.0.1
+Fixed dependencies
+
+v1.1.0
+Changed Mixin from Inject to Accessor
+This may cause a delay in the production rate, but improves compatibility

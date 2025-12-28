@@ -50,6 +50,7 @@ import mekanism.common.util.WorldUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorController;
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
+import net.michanide.mekanismneutronactivator.common.mixin.FusionFuelBurnedAccessor;
 import net.michanide.mekanismneutronactivator.common.registries.MNABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -173,6 +174,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
             FusionReactorMultiblockData multiblock = ((TileEntityFusionReactorController)aboveEntity).getMultiblock();
             if(multiblock != null){
                 if(multiblock.isBurning()){
+                    setFuelBurned(((FusionFuelBurnedAccessor) multiblock).getLastBurned());
                     lastFuelBurned = this.getFuelBurned();
                 } else {
                     lastFuelBurned = 0L;
