@@ -2,7 +2,6 @@ package net.michanide.mekanismneutronactivator.common.tile.machine;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mekanism.api.Action;
@@ -181,12 +180,9 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<G
                 productionRate = (float)(PRODUCTION_RATE.get() * MNAConfig.general.fissionNeutronActivatorPlutoniumMultiplier.get());
             }
             if(isPlutonium && world.getGameTime() > lastProcessTick){
-                // lastProcessTick = world.getGameTime();
-                // System.out.println("Plutonium decay counter: " + plutoniumDecayCounter);
                 if(++plutoniumDecayCounter >= MekanismConfig.general.radioactiveWasteBarrelProcessTicks.get()){
                     plutoniumDecayCounter = 0;
                     wasteTank.shrinkStack(MekanismConfig.general.radioactiveWasteBarrelDecayAmount.get(), Action.EXECUTE);
-                    // System.out.println("Plutonium decayed");
                 }
             }
         } else {

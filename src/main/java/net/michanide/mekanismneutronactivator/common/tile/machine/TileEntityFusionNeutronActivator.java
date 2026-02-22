@@ -164,6 +164,7 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
     private float recalculateProductionRate() {
         Level world = getLevel();
         if (world == null || !canFunction()) {
+            setFuelBurned(0L);
             return 0;
         }
 
@@ -177,16 +178,16 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
                     setFuelBurned(((FusionFuelBurnedAccessor) multiblock).getLastBurned());
                     lastFuelBurned = this.getFuelBurned();
                 } else {
+                    setFuelBurned(0L);
                     lastFuelBurned = 0L;
                 }
             } else {
+                setFuelBurned(0L);
                 lastFuelBurned = 0L;
             }
-            // System.out.println(lastFuelBurned);
         } else {
         }
         float production = (float) MNAConfig.general.fusionNeutronActivatorMultiplier.get() * (float) lastFuelBurned;
-        // System.out.println(production);
         return production;
     }
 
