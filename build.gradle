@@ -18,6 +18,14 @@ version = mod_version
 group = mod_group_id
 
 repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        name 'jared maven'
+        url "https://maven.blamejared.com/"
+    }
     // Add here additional repositories if required by some of the dependencies below.
 }
 
@@ -27,6 +35,9 @@ base {
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
 
 neoForge {
     // Specify the version of NeoForge to use.
@@ -114,15 +125,17 @@ configurations {
 dependencies {
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
+    implementation "mekanism:Mekanism:${minecraft_version}-${mekanism_version}"
+    implementation "mekanism:MekanismGenerators:${minecraft_version}-${mekanism_version}"
 
     // Example mod dependency using a file as dependency
     // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
@@ -147,6 +160,9 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            mekanism_version       : mekanism_version,
+            mekanism_version_range : mekanism_version_range,
+            jei_version            : jei_version
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -171,10 +187,6 @@ publishing {
             url "file://${project.projectDir}/repo"
         }
     }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
