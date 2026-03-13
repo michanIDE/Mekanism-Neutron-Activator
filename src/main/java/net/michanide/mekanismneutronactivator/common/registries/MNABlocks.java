@@ -8,7 +8,6 @@ import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
 import mekanism.common.block.prefab.BlockTile.BlockTileModel;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
-import mekanism.common.item.block.machine.ItemBlockMachine;
 import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleChemical;
 import mekanism.common.registration.impl.BlockDeferredRegister;
@@ -38,8 +37,8 @@ public class MNABlocks {
                 )
           ).forItemHolder(holder -> holder
                 .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                      .addBasic(TileEntityFusionNeutronActivator.MAX_GAS, MekanismRecipeType.ACTIVATING, SingleChemical::containsInput)
-                      .addBasic(TileEntityFusionNeutronActivator.MAX_GAS)
+                      .addBasic(TileEntityFusionNeutronActivator.MAX_GAS_CONF.get(), MekanismRecipeType.ACTIVATING, SingleChemical::containsInput)
+                      .addBasic(TileEntityFusionNeutronActivator.MAX_GAS_CONF.get())
                       .build()
                 ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                       .addChemicalFillSlot(0)
@@ -56,8 +55,8 @@ public class MNABlocks {
                 )
           ).forItemHolder(holder -> holder
                 .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                      .addBasic(TileEntityFissionNeutronActivator.MAX_GAS, MekanismRecipeType.ACTIVATING, SingleChemical::containsInput)
-                      .addBasic(TileEntityFissionNeutronActivator.MAX_GAS)
+                      .addBasic(TileEntityFissionNeutronActivator.MAX_GAS_CONF.get(), MekanismRecipeType.ACTIVATING, SingleChemical::containsInput)
+                      .addBasic(TileEntityFissionNeutronActivator.MAX_GAS_CONF.get())
                       .build()
                 ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                       .addChemicalFillSlot(0)
