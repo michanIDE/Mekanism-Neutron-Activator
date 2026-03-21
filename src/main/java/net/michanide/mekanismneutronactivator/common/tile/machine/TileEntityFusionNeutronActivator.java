@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.chemical.BasicChemicalTank;
@@ -56,7 +55,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<ChemicalToChemicalRecipe> implements IBoundingBlock, ChemicalRecipeLookupHandler<ChemicalToChemicalRecipe> {
@@ -66,6 +64,9 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ch
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
+    
+    public static final Long DEFAULT_MAX_GAS = 10_000L;
+    
     public static final CachedLongValue MAX_GAS_CONF = MNAConfig.general.fusionNeutronActivatorMaxTankSize;
     public static final CachedLongValue OUTPUT_RATE_CONF = MNAConfig.general.fusionNeutronActivatorOutputRate;
 

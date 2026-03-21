@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import mekanism.api.Action;
-import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +46,7 @@ import mekanism.common.recipe.IMekanismRecipeTypeProvider;
 import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.ChemicalRecipeLookupHandler;
 import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleChemical;
-import mekanism.common.registries.MekanismGases;
+import mekanism.common.registries.MekanismChemicals;
 import mekanism.common.tile.TileEntityRadioactiveWasteBarrel;
 import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.tile.interfaces.IBoundingBlock;
@@ -61,7 +60,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<ChemicalToChemicalRecipe> implements IBoundingBlock, ChemicalRecipeLookupHandler<ChemicalToChemicalRecipe> {
     
@@ -70,6 +68,9 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<C
           RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
+
+    public static final Long DEFAULT_MAX_GAS = 10_000L;
+
     public static final CachedLongValue MAX_GAS_CONF = MNAConfig.general.fissionNeutronActivatorMaxTankSize;
     public static final CachedLongValue OUTPUT_RATE_CONF = MNAConfig.general.fissionNeutronActivatorOutputRate;
     public static final CachedDoubleValue PRODUCTION_RATE = MNAConfig.general.fissionNeutronActivatorProductionRate;
@@ -81,7 +82,6 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<C
 
     @SyntheticComputerMethod(getter = "getProductionRate")
     private float productionRate;
-    private boolean settingsChecked;
 
     private final IOutputHandler<@NotNull ChemicalStack> outputHandler;
     private final IInputHandler<@NotNull ChemicalStack> inputHandler;
@@ -179,11 +179,11 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<C
         BlockEntity aboveEntity = WorldUtils.getTileEntity(world, dstBlock);
         if(aboveEntity != null && aboveEntity instanceof TileEntityRadioactiveWasteBarrel){
             TileEntityRadioactiveWasteBarrel barrel = (TileEntityRadioactiveWasteBarrel) aboveEntity;
-            StackedWasteBarrel wasteTank = barrel.getGasTank();
-            if(wasteTank.getType() == MekanismGases.NUCLEAR_WASTE.get()){
+            StackedWasteBarrel wasteTank = barrel.getChemicalTank();
+            if(wasteTank.getStack().getChemical() == MekanismChemicals.NUCLEAR_WASTE.get()){
                 // System.out.println("Waste tank is nuclear waste");
                 productionRate = (float)PRODUCTION_RATE.get();
-            } else if(wasteTank.getType() == MekanismGases.PLUTONIUM.get()){
+            } else if(wasteTank.getStack().getChemical() == MekanismChemicals.PLUTONIUM.get()){
                 isPlutonium = true;
                 // System.out.println("Waste tank is plutonium");
                 productionRate = (float)(PRODUCTION_RATE.get() * MNAConfig.general.fissionNeutronActivatorPlutoniumMultiplier.get());

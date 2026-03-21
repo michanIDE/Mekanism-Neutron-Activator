@@ -1,11 +1,11 @@
 package net.michanide.mekanismneutronactivator.common.registries;
 
 import mekanism.common.block.attribute.AttributeCustomSelectionBox;
+import mekanism.common.block.attribute.AttributeHasBounding;
 import mekanism.common.block.attribute.AttributeParticleFX;
 import mekanism.common.block.attribute.AttributeUpgradeSupport;
 import mekanism.common.block.attribute.Attributes;
-import mekanism.common.content.blocktype.Machine;
-import mekanism.common.content.blocktype.Machine.MachineBuilder;
+import mekanism.common.lib.transmitter.TransmissionType;
 import net.michanide.mekanismneutronactivator.common.MNALang;
 import net.michanide.mekanismneutronactivator.common.content.blocktype.BlockShapes;
 import net.michanide.mekanismneutronactivator.common.content.blocktype.MNAMachine;
@@ -18,24 +18,26 @@ public class MNABlockTypes {
     private MNABlockTypes(){
     }
 
-    public static final Machine<TileEntityFusionNeutronActivator> FUSION_NEUTRON_ACTIVATOR = MachineBuilder
+    public static final MNAMachine<TileEntityFusionNeutronActivator> FUSION_NEUTRON_ACTIVATOR = MNAMachineBuilder
         .createMNAMachine(() -> MNATileEntityTypes.FUSION_NEUTRON_ACTIVATOR, MNALang.DESCRIPTION_FUSION_NEUTRON_ACTIVATOR)
         .withGui(() -> MNAContainerTypes.FUSION_NEUTRON_ACTIVATOR)
         .without(AttributeParticleFX.class, AttributeUpgradeSupport.class)
         .withCustomShape(BlockShapes.FUSION_NEUTRON_ACTIVATOR)
         .with(AttributeCustomSelectionBox.JSON)
-        .withBounding((pos, state, builder) -> builder.add(pos.above()))
+        .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.ITEM)
+        .with(AttributeHasBounding.ABOVE_ONLY)
         .withComputerSupport("fusionNeutronActivator")
         .replace(Attributes.ACTIVE)
         .build();
 
-    public static final Machine<TileEntityFissionNeutronActivator> FISSION_NEUTRON_ACTIVATOR = MachineBuilder
+    public static final MNAMachine<TileEntityFissionNeutronActivator> FISSION_NEUTRON_ACTIVATOR = MNAMachineBuilder
         .createMNAMachine(() -> MNATileEntityTypes.FISSION_NEUTRON_ACTIVATOR, MNALang.DESCRIPTION_FISSION_NEUTRON_ACTIVATOR)
         .withGui(() -> MNAContainerTypes.FISSION_NEUTRON_ACTIVATOR)
         .without(AttributeParticleFX.class, AttributeUpgradeSupport.class)
         .withCustomShape(BlockShapes.FISSION_NEUTRON_ACTIVATOR)
         .with(AttributeCustomSelectionBox.JSON)
-        .withBounding((pos, state, builder) -> builder.add(pos.above()))
+        .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.ITEM)
+        .with(AttributeHasBounding.ABOVE_ONLY)
         .withComputerSupport("fissionNeutronActivator")
         .replace(Attributes.ACTIVE)
         .build();

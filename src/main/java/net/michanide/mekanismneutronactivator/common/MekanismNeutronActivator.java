@@ -1,6 +1,9 @@
 package net.michanide.mekanismneutronactivator.common;
 
+import mekanism.common.config.MekanismConfig;
+import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
 import net.michanide.mekanismneutronactivator.common.registries.*;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -17,12 +20,9 @@ public class MekanismNeutronActivator
 
     public MekanismNeutronActivator(ModContainer modContainer, IEventBus modEventBus)
     {
-        // MNAConfig.registerConfigs(ModLoadingContext.get());
-
-        // IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        // modEventBus.addListener(this::commonSetup);
-        // modEventBus.addListener(this::onConfigLoad);
+        MNAConfig.registerConfigs(modContainer);
         
+        modEventBus.addListener(MekanismConfig::onConfigLoad);
         addRegistrationListeners(modEventBus);
     }
 
@@ -44,8 +44,8 @@ public class MekanismNeutronActivator
     //     }
     // }
 
-    // public static ResourceLocation rl(String path) {
-    //   return new ResourceLocation(MekanismNeutronActivator.MOD_ID, path);
-    // }
+    public static ResourceLocation rl(String path) {
+      return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 
 }

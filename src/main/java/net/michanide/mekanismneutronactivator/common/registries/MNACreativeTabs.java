@@ -2,7 +2,6 @@ package net.michanide.mekanismneutronactivator.common.registries;
 
 import mekanism.common.registration.MekanismDeferredHolder;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
-import mekanism.common.registration.impl.CreativeTabRegistryObject;
 import mekanism.common.registries.MekanismCreativeTabs;
 import net.michanide.mekanismneutronactivator.common.MNALang;
 import net.michanide.mekanismneutronactivator.common.MekanismNeutronActivator;
@@ -15,8 +14,8 @@ public class MNACreativeTabs {
 
     public static final CreativeTabDeferredRegister CREATIVE_TABS = new CreativeTabDeferredRegister(MekanismNeutronActivator.MOD_ID, MNACreativeTabs::addToExistingTabs);
 
-    public static final MekanismDeferredHolder<CreativeModeTab, CreativeModeTab> MNA = CREATIVE_TABS.registerMain(MNALang.MEKANISM_NEUTRON_ACTIVATOR, MNABlocks.FUSION_NEUTRON_ACTIVATOR, builder ->
-          builder.withTabsBefore(MekanismCreativeTabs.MEKANISM.key())
+    public static final MekanismDeferredHolder<CreativeModeTab, CreativeModeTab> MNA = CREATIVE_TABS.registerMain(MNALang.MEKANISM_NEUTRON_ACTIVATOR, MNABlocks.FUSION_NEUTRON_ACTIVATOR.getItemHolder(), builder ->
+          builder.withTabsBefore(MekanismCreativeTabs.MEKANISM.getId())
                 .displayItems((displayParameters, output) -> {
                     CreativeTabDeferredRegister.addToDisplay(MNABlocks.BLOCKS, output);
                 })

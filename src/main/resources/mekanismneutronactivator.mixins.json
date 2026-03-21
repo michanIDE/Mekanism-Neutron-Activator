@@ -4,6 +4,7 @@
   "package": "net.michanide.mekanismneutronactivator.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "FusionFuelBurnedAccessor"
   ],
   "client": [
   ],
