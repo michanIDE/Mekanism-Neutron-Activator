@@ -26,6 +26,12 @@ repositories {
         name 'jared maven'
         url "https://maven.blamejared.com/"
     }
+    repositories {
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+    }
     // Add here additional repositories if required by some of the dependencies below.
 }
 
@@ -125,10 +131,17 @@ configurations {
 dependencies {
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    if (recipe_viewer == 'jei' || recipe_viewer == 'hybrid') {
+        localRuntime("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    }
+
+    compileOnly("dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api")
+    def emi = "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
+    if (recipe_viewer == 'emi' || recipe_viewer == 'hybrid') {
+        localRuntime(emi)
+    }
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
@@ -162,7 +175,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_version            : mod_version,
             mekanism_version       : mekanism_version,
             mekanism_version_range : mekanism_version_range,
-            jei_version            : jei_version
+            jei_version            : jei_version,
+            jei_version_range      : jei_version_range,
+            emi_version            : emi_version,
+            emi_version_range      : emi_version_range
     ]
     inputs.properties replaceProperties
     expand replaceProperties

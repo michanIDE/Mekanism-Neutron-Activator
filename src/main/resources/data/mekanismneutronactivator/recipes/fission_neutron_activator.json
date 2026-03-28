@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "AEA",
+      "CFC",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "mekanism:alloy_reinforced"
+      },
+      "E": {
+        "item": "mekanism:enriched_carbon"
+      },
+      "C": {
+        "item": "mekanism:advanced_control_circuit"
+      },
+      "F": {
+        "item": "mekanismgenerators:fission_reactor_casing"
+      },
+      "B": {
+        "tag": "forge:ingots/bronze"
+      }
+    },
+    "result": {
+      "item": "mekanismneutronactivator:fission_neutron_activator"
+    }
+  }
