@@ -69,7 +69,7 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<C
           RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
 
-    public static final Long DEFAULT_MAX_GAS = 10_000L;
+    // public static final Long DEFAULT_MAX_GAS = 10_000L;
 
     public static final CachedLongValue MAX_GAS_CONF = MNAConfig.general.fissionNeutronActivatorMaxTankSize;
     public static final CachedLongValue OUTPUT_RATE_CONF = MNAConfig.general.fissionNeutronActivatorOutputRate;
@@ -100,7 +100,7 @@ public class TileEntityFissionNeutronActivator extends TileEntityRecipeMachine<C
         configComponent.setupIOConfig(TransmissionType.CHEMICAL, inputTank, outputTank, RelativeSide.FRONT, false, true).setEjecting(true);
         configComponent.addDisabledSides(RelativeSide.TOP);
 
-        ejectorComponent = new TileComponentEjector(this);
+        ejectorComponent = new TileComponentEjector(this, OUTPUT_RATE_CONF);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.CHEMICAL)
               .setCanTankEject(tank -> tank != inputTank);
         inputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_INPUT);
