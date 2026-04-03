@@ -5,7 +5,6 @@ import net.michanide.mekanismneutronactivator.client.gui.GuiFissionNeutronActiva
 import net.michanide.mekanismneutronactivator.client.gui.GuiFusionNeutronActivator;
 import net.michanide.mekanismneutronactivator.common.MekanismNeutronActivator;
 import net.michanide.mekanismneutronactivator.common.registries.MNAContainerTypes;
-import net.minecraft.core.registries.Registries;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.api.distmarker.Dist;
