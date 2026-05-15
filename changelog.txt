@@ -7,3 +7,9 @@ Fixed dependencies
 v1.1.0
 Changed Mixin from Inject to Accessor
 This may cause a delay in the production rate, but improves compatibility
+
+v1.2.0
+added computer integration
+
+v1.3.0
+added Mekanism Borderless Multiblock integration

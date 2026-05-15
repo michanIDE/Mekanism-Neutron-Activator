@@ -48,6 +48,7 @@ import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.WorldUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
+import mekanism.generators.common.tile.fusion.TileEntityFusionReactorBlock;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorController;
 import net.michanide.mekanismneutronactivator.common.config.MNAConfig;
 import net.michanide.mekanismneutronactivator.common.mixin.FusionFuelBurnedAccessor;
@@ -169,11 +170,20 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
         }
 
         Long lastFuelBurned = 0L;
-        BlockPos dstBlock = this.getBlockPos().above(6);
-        BlockEntity aboveEntity = WorldUtils.getTileEntity(world, dstBlock);
-        if(aboveEntity != null && aboveEntity instanceof TileEntityFusionReactorController){
-            FusionReactorMultiblockData multiblock = ((TileEntityFusionReactorController)aboveEntity).getMultiblock();
-            if(multiblock != null){
+        BlockPos abovePos = this.getBlockPos().above(2);
+        BlockEntity aboveEntity = WorldUtils.getTileEntity(world, abovePos);
+        FusionReactorMultiblockData multiblock = null;
+        if(aboveEntity instanceof TileEntityFusionReactorBlock fusionBlock){
+            if(fusionBlock.getMultiblock() != null){
+                multiblock = fusionBlock.getMultiblock();
+            }
+        }
+
+        if(multiblock != null){
+            int reactorSizeMinus1 = multiblock.getMaxPos().getX() - multiblock.getMinPos().getX();
+            BlockPos controllerPos = this.getBlockPos().above(reactorSizeMinus1 + 2);
+            BlockEntity targetEntity = WorldUtils.getTileEntity(world, controllerPos);
+            if (targetEntity != null && targetEntity instanceof TileEntityFusionReactorController) {
                 if(multiblock.isBurning()){
                     setFuelBurned(((FusionFuelBurnedAccessor) multiblock).getLastBurned());
                     lastFuelBurned = this.getFuelBurned();
@@ -181,12 +191,27 @@ public class TileEntityFusionNeutronActivator extends TileEntityRecipeMachine<Ga
                     setFuelBurned(0L);
                     lastFuelBurned = 0L;
                 }
-            } else {
-                setFuelBurned(0L);
-                lastFuelBurned = 0L;
             }
-        } else {
         }
+
+        // BlockPos dstBlock = this.getBlockPos().above(6);
+        // BlockEntity aboveEntity = WorldUtils.getTileEntity(world, dstBlock);
+        // if(aboveEntity != null && aboveEntity instanceof TileEntityFusionReactorController){
+        //     FusionReactorMultiblockData multiblock = ((TileEntityFusionReactorController)aboveEntity).getMultiblock();
+        //     if(multiblock != null){
+        //         if(multiblock.isBurning()){
+        //             setFuelBurned(((FusionFuelBurnedAccessor) multiblock).getLastBurned());
+        //             lastFuelBurned = this.getFuelBurned();
+        //         } else {
+        //             setFuelBurned(0L);
+        //             lastFuelBurned = 0L;
+        //         }
+        //     } else {
+        //         setFuelBurned(0L);
+        //         lastFuelBurned = 0L;
+        //     }
+        // } else {
+        // }
         float production = (float) MNAConfig.general.fusionNeutronActivatorMultiplier.get() * (float) lastFuelBurned;
         return production;
     }
