@@ -19,10 +19,10 @@
         "item": "mekanismgenerators:fission_reactor_casing"
       },
       "B": {
-        "tag": "forge:ingots/bronze"
+        "tag": "c:ingots/bronze"
       }
     },
     "result": {
-      "item": "mekanismneutronactivator:fission_neutron_activator"
+      "id": "mekanismneutronactivator:fission_neutron_activator"
     }
   }
