@@ -19,10 +19,10 @@
         "item": "mekanismgenerators:fusion_reactor_frame"
       },
       "B": {
-        "tag": "forge:ingots/bronze"
+        "c": "forge:ingots/bronze"
       }
     },
     "result": {
-      "item": "mekanismneutronactivator:fusion_neutron_activator"
+      "id": "mekanismneutronactivator:fusion_neutron_activator"
     }
   }
